@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022"],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "useDefineForClassFields": true,
+    "noEmit": true,
+    "paths": {
+      "@cornworld/mp-core": ["../cornworld-miniprogram-polyfill/packages/mp-core/src/index.ts"],
+      "@cornworld/mp-fetch": ["../cornworld-miniprogram-polyfill/packages/mp-fetch/src/index.ts"],
+      "@cornworld/mp-storage": ["../cornworld-miniprogram-polyfill/packages/mp-storage/src/index.ts"],
+      "@cornworld/mp-text-encoding": ["../cornworld-miniprogram-polyfill/packages/mp-text-encoding/src/index.ts"]
+    }
+  },
+  "include": ["src", "test"]
+}

@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: 类型检查
+        run: pnpm typecheck
+
+      - name: 构建
+        run: pnpm build
+
+      - name: 单元测试(wx-mock 桥协议)
+        run: pnpm test
+
+      - name: 打包 npm tarball
+        run: |
+          npm pack
+          mkdir -p dist-artifacts
+          mv *.tgz dist-artifacts/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: npm-tarballs-${{ github.sha }}
+          path: dist-artifacts/
+          retention-days: 14
+          if-no-files-found: error
+
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      - name: 启动并播种真实 PocketBase
+        run: bash scripts/ensure-pb.sh
+
+      - name: 集成测试(真实 PocketBase)
+        run: PB_URL=http://127.0.0.1:8090 pnpm vitest run test/pb-integration.test.ts

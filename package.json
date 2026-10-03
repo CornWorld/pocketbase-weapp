@@ -1,0 +1,72 @@
+{
+  "name": "@cornworld/mp-pocketbase",
+  "version": "0.1.0",
+  "description": "PocketBase JS SDK 的微信小程序适配层:fetch / authStore / realtime / 文件上传,复用 cornworld-miniprogram-polyfill",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./realtime": {
+      "types": "./dist/realtime.d.ts",
+      "import": "./dist/realtime.js",
+      "require": "./dist/realtime.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "dependencies": {
+    "@cornworld/mp-core": "link:../cornworld-miniprogram-polyfill/packages/mp-core",
+    "@cornworld/mp-fetch": "link:../cornworld-miniprogram-polyfill/packages/mp-fetch",
+    "@cornworld/mp-storage": "link:../cornworld-miniprogram-polyfill/packages/mp-storage",
+    "@cornworld/mp-text-encoding": "link:../cornworld-miniprogram-polyfill/packages/mp-text-encoding",
+    "eventsource-parser": "^4.1.1"
+  },
+  "peerDependencies": {
+    "pocketbase": ">=0.23 <1"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts src/realtime.ts --format esm,cjs --target es2020 --clean --sourcemap",
+    "typecheck": "tsc -p . --noEmit",
+    "test": "vitest run",
+    "test:pb": "bash scripts/ensure-pb.sh && PB_URL=http://127.0.0.1:8090 vitest run test/pb-integration.test.ts",
+    "lint": "eslint .",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "changeset publish --provenance",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.0",
+    "@cornworld/wx-mock": "link:../cornworld-miniprogram-polyfill/internal/wx-mock",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.0.0",
+    "eslint": "^10.11.0",
+    "globals": "^17.13.0",
+    "miniprogram-api-typings": "^5.2.3",
+    "pocketbase": "^0.28.1",
+    "prettier": "^3.9.9",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.71.0",
+    "vitest": "^3.2.4"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@10.13.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}
