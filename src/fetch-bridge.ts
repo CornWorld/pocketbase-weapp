@@ -1,4 +1,4 @@
-import { fetch as mpFetch } from '@cornworld/mp-fetch'
+import { fetch as mpFetch } from 'mp-web-polyfill/fetch'
 import type PocketBase from 'pocketbase'
 
 /**

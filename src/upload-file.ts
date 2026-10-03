@@ -1,4 +1,4 @@
-import { getWx } from '@cornworld/mp-core'
+import { getWx } from 'mp-web-polyfill/core'
 import type PocketBase from 'pocketbase'
 
 export interface UploadFileResult {

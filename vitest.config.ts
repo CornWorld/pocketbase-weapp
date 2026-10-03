@@ -8,10 +8,12 @@ const polyfill = (p: string) =>
 export default defineConfig({
   resolve: {
     alias: {
-      '@cornworld/mp-core': polyfill('packages/mp-core/src/index.ts'),
-      '@cornworld/mp-fetch': polyfill('packages/mp-fetch/src/index.ts'),
-      '@cornworld/mp-storage': polyfill('packages/mp-storage/src/index.ts'),
-      '@cornworld/mp-text-encoding': polyfill('packages/mp-text-encoding/src/index.ts'),
+      'mp-web-polyfill/core': polyfill('packages/mp-web-polyfill/src/core/index.ts'),
+      'mp-web-polyfill/fetch': polyfill('packages/mp-web-polyfill/src/fetch/index.ts'),
+      'mp-web-polyfill/storage': polyfill('packages/mp-web-polyfill/src/storage/index.ts'),
+      'mp-web-polyfill/text-encoding': polyfill(
+        'packages/mp-web-polyfill/src/text-encoding/index.ts',
+      ),
       '@cornworld/wx-mock': polyfill('internal/wx-mock/src/index.ts'),
     },
   },

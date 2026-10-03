@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { startWxMock, type WxMock } from '@cornworld/wx-mock'
-import { setWxForTesting } from '@cornworld/mp-core'
-import { Blob, File as MpFile, FormData as MpFormData } from '@cornworld/mp-fetch'
+import { setWxForTesting } from 'mp-web-polyfill/core'
+import { Blob, File as MpFile, FormData as MpFormData } from 'mp-web-polyfill/fetch'
 import { createMiniPocketBase, getRealtimeClient } from '../src/index'
 
 const pathname = (req: { url?: string }) => new URL(req.url ?? '/', 'http://x').pathname

@@ -24,11 +24,8 @@
   ],
   "sideEffects": false,
   "dependencies": {
-    "@cornworld/mp-core": "link:../cornworld-miniprogram-polyfill/packages/mp-core",
-    "@cornworld/mp-fetch": "link:../cornworld-miniprogram-polyfill/packages/mp-fetch",
-    "@cornworld/mp-storage": "link:../cornworld-miniprogram-polyfill/packages/mp-storage",
-    "@cornworld/mp-text-encoding": "link:../cornworld-miniprogram-polyfill/packages/mp-text-encoding",
-    "eventsource-parser": "^4.1.1"
+    "eventsource-parser": "^4.1.1",
+    "mp-web-polyfill": "link:../cornworld-miniprogram-polyfill/packages/mp-web-polyfill"
   },
   "peerDependencies": {
     "pocketbase": ">=0.23 <1"

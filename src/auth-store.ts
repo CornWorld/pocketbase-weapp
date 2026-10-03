@@ -1,5 +1,5 @@
 import { BaseAuthStore } from 'pocketbase'
-import { getWx } from '@cornworld/mp-core'
+import { getWx } from 'mp-web-polyfill/core'
 
 /**
  * PB 官方 authStore 的 wx storage 持久化实现:

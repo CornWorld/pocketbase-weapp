@@ -1,6 +1,6 @@
 import { createParser, type EventSourceMessage } from 'eventsource-parser'
-import { getWx, type WxRequestTask } from '@cornworld/mp-core'
-import { TextDecoder } from '@cornworld/mp-text-encoding'
+import { getWx, type WxRequestTask } from 'mp-web-polyfill/core'
+import { TextDecoder } from 'mp-web-polyfill/text-encoding'
 import type PocketBase from 'pocketbase'
 
 export type RealtimeState = 'closed' | 'connecting' | 'open'

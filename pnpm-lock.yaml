@@ -8,21 +8,12 @@ importers:
 
   .:
     dependencies:
-      '@cornworld/mp-core':
-        specifier: link:../cornworld-miniprogram-polyfill/packages/mp-core
-        version: link:../cornworld-miniprogram-polyfill/packages/mp-core
-      '@cornworld/mp-fetch':
-        specifier: link:../cornworld-miniprogram-polyfill/packages/mp-fetch
-        version: link:../cornworld-miniprogram-polyfill/packages/mp-fetch
-      '@cornworld/mp-storage':
-        specifier: link:../cornworld-miniprogram-polyfill/packages/mp-storage
-        version: link:../cornworld-miniprogram-polyfill/packages/mp-storage
-      '@cornworld/mp-text-encoding':
-        specifier: link:../cornworld-miniprogram-polyfill/packages/mp-text-encoding
-        version: link:../cornworld-miniprogram-polyfill/packages/mp-text-encoding
       eventsource-parser:
         specifier: ^4.1.1
         version: 4.1.1
+      mp-web-polyfill:
+        specifier: link:../cornworld-miniprogram-polyfill/packages/mp-web-polyfill
+        version: link:../cornworld-miniprogram-polyfill/packages/mp-web-polyfill
     devDependencies:
       '@changesets/cli':
         specifier: ^2.29.0

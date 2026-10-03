@@ -6,7 +6,7 @@
 set -euo pipefail
 
 PORT="${PB_PORT:-8090}"
-VERSION="0.28.1"
+VERSION="0.40.4"  # JS SDK(npm pocketbase)最新为 0.28.1;服务端跟进 0.40.x
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DIR="$ROOT/.pb"
 mkdir -p "$DIR"

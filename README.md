@@ -37,7 +37,7 @@ await uploadFile(pb, 'notes', 'doc', filePath, { title: '带附件的笔记' })
 await pb.collection('notes').create(formData)
 ```
 
-## 关键协议事实(对真实 PocketBase 0.28.1 验证)
+## 关键协议事实(对真实 PocketBase **0.40.4** 验证;跟进最新版,不做旧 API 兼容;JS SDK(npm `pocketbase` 0.28.1)已为最新)
 
 - realtime 握手:GET `/api/realtime`(SSE)→ `event: PB_CONNECT` 取 `clientId` →
   POST `/api/realtime` `{clientId, subscriptions: ['topic', …]}`(**0.24+ 为纯 topic 字符串数组**);
