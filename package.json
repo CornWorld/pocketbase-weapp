@@ -25,12 +25,12 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cornworld/cornworld-miniprogram-pb-sdk.git"
+    "url": "git+https://github.com/cornworld/pocketbase-weapp.git"
   },
   "bugs": {
-    "url": "https://github.com/cornworld/cornworld-miniprogram-pb-sdk/issues"
+    "url": "https://github.com/cornworld/pocketbase-weapp/issues"
   },
-  "homepage": "https://github.com/cornworld/cornworld-miniprogram-pb-sdk#readme",
+  "homepage": "https://github.com/cornworld/pocketbase-weapp#readme",
   "keywords": [
     "pocketbase",
     "weapp",
