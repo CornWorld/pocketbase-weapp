@@ -5,7 +5,7 @@ PocketBase JS SDK 的**微信小程序适配层**。不 fork 官方 SDK——`po
 
 | 接入点 | 官方机制 | 本包实现 |
 |---|---|---|
-| HTTP 传输 | `send()` 内 `options.fetch \|\| fetch`,且 `beforeSend` 可整体替换 options | `injectFetchBridge`:一处 `pb.beforeSend` 注入 `@cornworld/mp-fetch`(wx.request 桥),全局生效 |
+| HTTP 传输 | `send()` 内 `options.fetch \|\| fetch`,且 `beforeSend` 可整体替换 options | `injectFetchBridge`:一处 `pb.beforeSend` 注入 `mp-web-polyfill`(wx.request 桥),全局生效 |
 | 认证持久化 | 构造器第二个参数传自定义 `BaseAuthStore` | `WxAuthStore`:读写 `wx.setStorageSync`,JWT 损坏容错 |
 | realtime | 官方 `RealtimeService` **硬编码 `EventSource` 且无注入点** | `PBRealtimeClient`:wx.request `enableChunked` SSE + `eventsource-parser` + 重握手重订阅,`subscribe/unsubscribe` 与官方同签名,直接替换 `pb.realtime` |
 | 磁盘文件 | SDK 仅支持内存 FormData/Blob | `uploadFile()`:`wx.uploadFile` 桥(创建记录 + 文件字段) |
@@ -48,8 +48,10 @@ await pb.collection('notes').create(formData)
 
 ## 前提与边界
 
-- 依赖 `@cornworld/mp-fetch` / `mp-storage` / `mp-core` / `mp-text-encoding`
-  (当前以 `link:` 指向同级 `cornworld-miniprogram-polyfill` 仓库,首次 npm 发布后切换为 registry 版本);
+- 依赖 `mp-web-polyfill` 单包(当前以 `link:` 指向同级 `cornworld-miniprogram-polyfill`
+  仓库,首次 npm 发布后切换为 registry 版本);
+  本包只消费 `/fetch`、`/core`、`/text-encoding` 子路径,**不引入** `./url/idna`(tr46 ~213KB)
+  与 `./streams/full`(web-streams ~62KB)两个按需重依赖 —— 中文域名等场景由 App 侧自行安装;
 - **内存文件上传**需要全局 `FormData/Blob/File` 为 polyfill 实现(官方 SDK 用 `instanceof` 检测):
   `installWebRuntimeGlobals({ targets: ['FormData', 'Blob', 'File'] })`;磁盘文件走 `uploadFile()`,无此依赖;
 - wx storage 语义(单 key 1MB / 总 10MB / 可能被系统回收)由 polyfill 包显式文档化;
