@@ -15,7 +15,7 @@ export { uploadFile, type UploadFileResult } from './upload-file'
 export type { BaseAuthStore }
 
 export interface CreateMiniPocketBaseOptions {
-  /** wx storage 持久化键,默认 'pocketbase_auth' */
+  /** wx storage 持久化键, 默认 'pocketbase_auth' */
   storageKey?: string
   /** 自定义 authStore(默认 WxAuthStore) */
   authStore?: BaseAuthStore
@@ -26,7 +26,7 @@ export interface CreateMiniPocketBaseOptions {
  * 创建小程序适配的 PocketBase 客户端:
  * - 传输层:beforeSend 注入 wx.request fetch 桥(官方 SDK 的 options.fetch || fetch 回退点)
  * - 认证:WxAuthStore 持久化到 wx storage
- * - realtime:替换官方 RealtimeService 为 PBRealtimeClient(wx enableChunked + 重握手重订阅)
+ * - realtime:用 PBRealtimeClient 换掉官方 RealtimeService(wx enableChunked + 断线重握手重订阅)
  * - 磁盘文件:配合 uploadFile() 助手(wx.uploadFile)
  */
 export function createMiniPocketBase(

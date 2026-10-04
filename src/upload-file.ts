@@ -8,8 +8,8 @@ export interface UploadFileResult {
 
 /**
  * 磁盘文件上传(wx.uploadFile 桥):polyfill 的 FormData 只支持内存字节,
- * 小程序沙箱内的真实文件(相机/相册/USER_DATA_PATH)必须走 wx.uploadFile。
- * 仅覆盖「创建记录 + 文件字段」;更新场景 PB 支持 POST 语义时可复用。
+ * 小程序沙箱里的真实文件(相机/相册/USER_DATA_PATH)只能走 wx.uploadFile。
+ * 只覆盖「创建记录 + 文件字段」, 更新场景等 PB 支持 POST 语义时可以复用。
  */
 export async function uploadFile(
   pb: PocketBase,

@@ -13,9 +13,9 @@ export interface RealtimeMessage {
 export type RealtimeHandler = (message: RealtimeMessage) => void
 
 export interface RealtimeOptions {
-  /** 长连接 wx.request timeout(毫秒);默认 10 分钟(默认 60s 会被 wx 掐断) */
+  /** 长连接 wx.request 的 timeout(毫秒), 默认 10 分钟(微信默认 60s 就会掐断长连接) */
   timeout?: number
-  /** 重连间隔(毫秒),默认 3000 */
+  /** 重连间隔(毫秒), 默认 3000 */
   reconnectionTime?: number
   onStateChange?: (state: RealtimeState) => void
 }
@@ -26,16 +26,16 @@ interface Subscription {
 }
 
 /**
- * PocketBase realtime 协议客户端(替代官方 SDK 的 RealtimeService,
- * 因为后者硬编码 EventSource/SSE 且无注入点):
+ * PocketBase realtime 协议客户端(替掉官方 SDK 的 RealtimeService,
+ * 因为它硬编码 EventSource/SSE, 没留注入点):
  *
  * 1. GET /api/realtime(enableChunked)建立 SSE 流;
- * 2. 收到 `event: PB_CONNECT` 后取 clientId;
+ * 2. 收到 `event: PB_CONNECT` 后拿到 clientId;
  * 3. POST /api/realtime {clientId, subscriptions: [topic, …]} 同步订阅
- *    (PB 0.24+ 协议:纯 topic 字符串数组);
+ *    (PB 0.24+ 协议, 纯 topic 字符串数组);
  * 4. 服务端以 `event: <topic>` 推送 {action, record};
- * 5. 断线后重连:重新握手拿**新 clientId** 并全量重放订阅;
- * 6. 订阅清空 → 主动断开(与官方 SDK 语义一致),下次 subscribe 重新握手。
+ * 5. 断线后重连, 重新握手拿**新 clientId**, 并全量重放订阅;
+ * 6. 订阅清空 → 主动断开(和官方 SDK 语义一致), 下次 subscribe 重新握手。
  */
 export class PBRealtimeClient {
   #pb: PocketBase
@@ -131,7 +131,7 @@ export class PBRealtimeClient {
       try {
         this.#parser.feed(this.#decoder.decode(new Uint8Array(r.data), { stream: true }))
       } catch {
-        // 单帧异常不影响整体连接,由断线检测兜底
+        // 单帧解析失败不影响整体连接, 断线检测兜底
       }
     })
   }
@@ -162,7 +162,7 @@ export class PBRealtimeClient {
     try {
       sub.handler(JSON.parse(msg.data) as RealtimeMessage)
     } catch {
-      // 非法消息体忽略
+      // 消息体不合法就忽略
     }
   }
 
@@ -179,7 +179,7 @@ export class PBRealtimeClient {
       this.#setState('closed')
       return
     }
-    // open 状态断线 → 先落回 connecting,再按重连间隔重握手
+    // open 状态断线 → 先落回 connecting, 再按重连间隔重新握手
     if (this.#state === 'open') this.#setState('connecting')
     this.#clientId = ''
     if (this.#reconnectTimer) clearTimeout(this.#reconnectTimer)
@@ -202,7 +202,7 @@ export class PBRealtimeClient {
   async #syncSubscriptions(): Promise<void> {
     if (this.#clientId === '') return
     if (this.#subs.size === 0) {
-      // 与官方 SDK 一致:无订阅即断开,下次 subscribe 时重新握手
+      // 和官方 SDK 一致:没有订阅就断开, 下次 subscribe 时重新握手
       this.#suppressReconnect = true
       this.#clientId = ''
       this.#task?.abort()

@@ -3,7 +3,7 @@ import { getWx } from 'mp-web-polyfill/core'
 
 /**
  * PB 官方 authStore 的 wx storage 持久化实现:
- * 构造时从 wx storage 恢复,save/clear 同步落盘(与小程序同步存储 API 对应)。
+ * 构造时从 wx storage 恢复, save/clear 同步落盘(和小程序的同步存储 API 一一对应)。
  */
 export class WxAuthStore extends BaseAuthStore {
   readonly storageKey: string
@@ -17,7 +17,7 @@ export class WxAuthStore extends BaseAuthStore {
         const parsed = JSON.parse(raw) as { token?: string; record?: unknown }
         if (parsed.token) super.save(parsed.token, (parsed.record ?? null) as never)
       } catch {
-        // 损坏的持久化数据视为未登录
+        // 持久化数据坏了就当成未登录
       }
     }
   }
