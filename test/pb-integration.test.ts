@@ -5,8 +5,8 @@ import { Blob, File as MpFile, FormData as MpFormData } from 'mp-web-polyfill/fe
 import { createMiniPocketBase, getRealtimeClient } from '../src/index'
 
 // ———— C+ 层:真实 PocketBase 服务端集成(整条链路的最终锚点) ————
-// 前置:bash scripts/ensure-pb.sh(PB_URL 可覆盖,默认 127.0.0.1:8090)
-// PB 不可达时整组跳过(单测/CI 无 PB 环境也能过)
+// 前置:bash scripts/ensure-pb.sh(PB_URL 可覆盖, 默认 127.0.0.1:8090)
+// PB 连不上时整组跳过(单测/CI 没有 PB 环境也能过)
 
 const PB_URL = process.env.PB_URL ?? 'http://127.0.0.1:8090'
 const pbReachable = await fetch(`${PB_URL}/api/health`)
@@ -16,7 +16,7 @@ const pbReachable = await fetch(`${PB_URL}/api/health`)
 let mock: WxMock
 
 beforeEach(async () => {
-  // wx 宿主指向真实 PB:wx.request 桥发的是绝对 URL,绕过 mock 自身 origin
+  // wx 宿主指向真实 PB:wx.request 桥发的是绝对 URL, 会绕过 mock 自身的 origin
   mock = await startWxMock()
   setWxForTesting(mock.wx)
   ;(globalThis as Record<string, unknown>).FormData = MpFormData

@@ -26,7 +26,7 @@ beforeEach(async () => {
 
 afterEach(() => {
   setWxForTesting(undefined)
-  // 恢复可能的全局注入(multipart 用例)
+  // 恢复可能存在的全局注入(multipart 用例)
   delete (globalThis as Record<string, unknown>).FormData
   delete (globalThis as Record<string, unknown>).Blob
   delete (globalThis as Record<string, unknown>).File
@@ -111,8 +111,8 @@ describe('fetch 桥注入(beforeSend)', () => {
 
 describe('multipart 文件上传(内存 Blob,真机前提:全局已安装)', () => {
   it('create + FormData 经桥序列化为 multipart', async () => {
-    // 与真机一致:mp-web-runtime 安装后全局 FormData/Blob/File 即 polyfill 实现,
-    // 官方 SDK 的 instanceof FormData 检查才能识别
+    // 和真机一致:mp-web-runtime 安装后, 全局 FormData/Blob/File 就是 polyfill 实现,
+    // 官方 SDK 的 instanceof FormData 检查才认得出来
     ;(globalThis as Record<string, unknown>).FormData = MpFormData
     ;(globalThis as Record<string, unknown>).Blob = Blob
     ;(globalThis as Record<string, unknown>).File = MpFile
@@ -185,7 +185,7 @@ describe('realtime(PB_CONNECT 握手 + 订阅同步 + 断线重连)', () => {
     await waitFor(() => connections >= 2 && posts.size >= 2)
     expect([...posts]).toContain('c-2:posts')
 
-    // unsubscribe → 订阅清空 → 主动断开(与官方 SDK 语义一致)
+    // unsubscribe → 订阅清空 → 主动断开(和官方 SDK 语义一致)
     await unsub()
     expect(getRealtimeClient(pb)?.state).toBe('closed')
     await getRealtimeClient(pb)?.close()
