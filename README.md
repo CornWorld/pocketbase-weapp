@@ -120,4 +120,4 @@ pnpm test:pb     # 本地 PocketBase 集成测试
 
 ## License
 
-MIT
+LGPL-3.0-only。全文见 [LICENSE](./LICENSE)。
