@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# 下载 / 启动 / 播种 本地 PocketBase(幂等,可重复执行)。
-# 产出:http://127.0.0.1:${PB_PORT:-8090} 运行中的 PB,含 notes 集合与测试用户。
+# 下载 / 启动 / 播种本地 PocketBase(幂等, 可重复执行)。
+# 产出:http://127.0.0.1:${PB_PORT:-8090} 上跑着的 PB, 带 notes 集合和测试用户。
 #   superuser: test@cornworld.dev / 1234567890
 #   user:      u@cornworld.dev   / 1234567890
 set -euo pipefail
 
 PORT="${PB_PORT:-8090}"
-VERSION="0.40.4"  # JS SDK(npm pocketbase)最新为 0.28.1;服务端跟进 0.40.x
+VERSION="0.40.4"  # JS SDK(npm pocketbase)最新 0.28.1, 服务端跟进 0.40.x
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DIR="$ROOT/.pb"
 mkdir -p "$DIR"
@@ -52,7 +52,7 @@ if [ -z "$TOKEN" ]; then
   exit 1
 fi
 
-# notes(base 集合:文本 + 文件,规则全开便于集成测试)
+# notes(base 集合:文本 + 文件, 规则全开方便集成测试)
 if ! curl -s "$BASE/api/collections/notes" -H "Authorization: $TOKEN" | grep -q '"name":"notes"'; then
   curl -s -X POST "$BASE/api/collections" -H "Authorization: $TOKEN" -H 'Content-Type: application/json' \
     -d '{"name":"notes","type":"base","fields":[{"name":"title","type":"text","required":true},{"name":"body","type":"text"},{"name":"doc","type":"file","maxSelect":1}],"listRule":"","viewRule":"","createRule":"","updateRule":"","deleteRule":""}' >/dev/null

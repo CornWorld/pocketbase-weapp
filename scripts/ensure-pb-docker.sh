@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# 在本机 Docker 内启动/种子 PocketBase(幂等,可重复执行)。
-# 与 ensure-pb.sh 同版本、同账号、同集合;端口默认 8091,不与原生实例(8090)冲突。
+# 在本机 Docker 里启动/种子 PocketBase(幂等, 可重复执行)。
+# 和 ensure-pb.sh 同版本、同账号、同集合;端口默认 8091, 不跟原生实例(8090)打架。
 # 产出:http://127.0.0.1:8091 —— 数据持久化在 named volume pb-demo-data。
 set -euo pipefail
 
