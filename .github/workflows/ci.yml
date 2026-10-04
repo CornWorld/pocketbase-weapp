@@ -11,6 +11,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: "检出同级 mp-web-polyfill(link: 依赖目标,公开仓库免 token)"
+        uses: actions/checkout@v4
+        with:
+          repository: CornWorld/mp-web-polyfill
+          path: mp-web-polyfill
+      - name: "移到 package.json link: 期望的兄弟路径"
+        run: mv mp-web-polyfill ../mp-web-polyfill
+
       - uses: pnpm/action-setup@v4
 
       - uses: actions/setup-node@v4
@@ -50,6 +58,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: "检出同级 mp-web-polyfill(link: 依赖目标,公开仓库免 token)"
+        uses: actions/checkout@v4
+        with:
+          repository: CornWorld/mp-web-polyfill
+          path: mp-web-polyfill
+      - name: "移到 package.json link: 期望的兄弟路径"
+        run: mv mp-web-polyfill ../mp-web-polyfill
 
       - uses: pnpm/action-setup@v4
 
