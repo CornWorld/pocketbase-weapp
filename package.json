@@ -56,7 +56,7 @@
     "lint": "eslint .",
     "changeset": "changeset",
     "changeset:version": "changeset version",
-    "changeset:publish": "changeset publish --provenance",
+    "changeset:publish": "changeset publish",
     "format": "prettier --write ."
   },
   "devDependencies": {

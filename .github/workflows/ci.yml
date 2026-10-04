@@ -18,6 +18,8 @@ jobs:
           path: mp-web-polyfill
       - name: "移到 package.json link: 期望的兄弟路径"
         run: mv mp-web-polyfill ../mp-web-polyfill
+      - name: "安装并构建 mp-web-polyfill(其 exports 的 types 指向 dist,新 clone 无产物)"
+        run: pnpm --dir ../mp-web-polyfill install --frozen-lockfile && pnpm --dir ../mp-web-polyfill build
 
       - uses: pnpm/action-setup@v4
 

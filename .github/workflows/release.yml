@@ -43,6 +43,7 @@ jobs:
         run: pnpm build
 
       - name: Changesets(版本 PR / 发布)
+        if: ${{ secrets.NPM_TOKEN != '' }} # 未配置 npm 凭据前整段跳过,防止误发 link: 依赖的包
         id: changesets
         uses: changesets/action@v1
         with:
@@ -54,6 +55,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true # provenance 由 npm 配置开关承担,changeset publish 无 --provenance flag
 
       - name: 归档已发布 tarball
         if: steps.changesets.outputs.published == 'true'
