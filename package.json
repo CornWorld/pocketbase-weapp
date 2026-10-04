@@ -1,7 +1,7 @@
 {
-  "name": "@cornworld/mp-pocketbase",
+  "name": "pocketbase-weapp",
   "version": "0.1.0",
-  "description": "PocketBase JS SDK 的微信小程序适配层:fetch / authStore / realtime / 文件上传,复用 cornworld-miniprogram-polyfill",
+  "description": "PocketBase JS SDK 的微信小程序适配层:fetch / authStore / realtime / 文件上传,复用 mp-web-polyfill",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -23,6 +23,24 @@
     "dist"
   ],
   "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cornworld/cornworld-miniprogram-pb-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cornworld/cornworld-miniprogram-pb-sdk/issues"
+  },
+  "homepage": "https://github.com/cornworld/cornworld-miniprogram-pb-sdk#readme",
+  "keywords": [
+    "pocketbase",
+    "weapp",
+    "miniprogram",
+    "wechat",
+    "wx",
+    "fetch",
+    "sse",
+    "realtime"
+  ],
   "dependencies": {
     "eventsource-parser": "^4.1.1",
     "mp-web-polyfill": "link:../cornworld-miniprogram-polyfill/packages/mp-web-polyfill"

@@ -1,4 +1,4 @@
-# cornworld-miniprogram-pb-sdk
+# pocketbase-weapp
 
 PocketBase JS SDK 的**微信小程序适配层**。不 fork 官方 SDK——`pocketbase`(npm)原样引入,
 本包只做官方 SDK 暴露的三个接入点 + 一个文件上传助手:
@@ -13,7 +13,7 @@ PocketBase JS SDK 的**微信小程序适配层**。不 fork 官方 SDK——`po
 ## 用法
 
 ```ts
-import { createMiniPocketBase, uploadFile, getRealtimeClient } from '@cornworld/mp-pocketbase'
+import { createMiniPocketBase, uploadFile, getRealtimeClient } from 'pocketbase-weapp'
 
 const pb = createMiniPocketBase('https://pb.example.com', {
   storageKey: 'pocketbase_auth',        // 可选
@@ -72,4 +72,8 @@ pnpm test:pb     # 下载/启动/播种 PocketBase + 跑集成
 
 ## 发布
 
+包名 `pocketbase-weapp`(对齐官方生态 `pocketbase-<platform>` 惯例:dart/swift/rs…)。
 changesets + npm provenance + GitHub artifacts,与 polyfill 仓库同流程(见其 README「发布」)。
+
+**上架顺序**:`link:` 协议不能进 registry 依赖 —— 需先发布 `mp-web-polyfill`(及 devDep
+`@cornworld/wx-mock`)到 npm,再把本包依赖切到 registry 版本后发版。
