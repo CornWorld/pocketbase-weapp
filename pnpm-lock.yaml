@@ -12,15 +12,15 @@ importers:
         specifier: ^4.1.1
         version: 4.1.1
       mp-web-polyfill:
-        specifier: link:../cornworld-miniprogram-polyfill/packages/mp-web-polyfill
-        version: link:../cornworld-miniprogram-polyfill/packages/mp-web-polyfill
+        specifier: link:../mp-web-polyfill/packages/mp-web-polyfill
+        version: link:../mp-web-polyfill/packages/mp-web-polyfill
     devDependencies:
       '@changesets/cli':
         specifier: ^2.29.0
         version: 2.31.1(@types/node@24.19.1)
       '@cornworld/wx-mock':
-        specifier: link:../cornworld-miniprogram-polyfill/internal/wx-mock
-        version: link:../cornworld-miniprogram-polyfill/internal/wx-mock
+        specifier: link:../mp-web-polyfill/internal/wx-mock
+        version: link:../mp-web-polyfill/internal/wx-mock
       '@eslint/js':
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.11.0)

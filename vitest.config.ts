@@ -3,7 +3,7 @@ import { defineConfig } from 'vitest/config'
 
 // 跨仓源码级复用:别名指向 polyfill 仓库的 src,测试不依赖先构建
 const polyfill = (p: string) =>
-  fileURLToPath(new URL(`../cornworld-miniprogram-polyfill/${p}`, import.meta.url))
+  fileURLToPath(new URL(`../mp-web-polyfill/${p}`, import.meta.url))
 
 export default defineConfig({
   resolve: {

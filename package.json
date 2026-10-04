@@ -43,7 +43,7 @@
   ],
   "dependencies": {
     "eventsource-parser": "^4.1.1",
-    "mp-web-polyfill": "link:../cornworld-miniprogram-polyfill/packages/mp-web-polyfill"
+    "mp-web-polyfill": "link:../mp-web-polyfill/packages/mp-web-polyfill"
   },
   "peerDependencies": {
     "pocketbase": ">=0.23 <1"
@@ -61,7 +61,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.0",
-    "@cornworld/wx-mock": "link:../cornworld-miniprogram-polyfill/internal/wx-mock",
+    "@cornworld/wx-mock": "link:../mp-web-polyfill/internal/wx-mock",
     "@eslint/js": "^10.0.1",
     "@types/node": "^24.0.0",
     "eslint": "^10.11.0",

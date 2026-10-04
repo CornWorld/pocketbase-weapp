@@ -48,7 +48,7 @@ await pb.collection('notes').create(formData)
 
 ## 前提与边界
 
-- 依赖 `mp-web-polyfill` 单包(当前以 `link:` 指向同级 `cornworld-miniprogram-polyfill`
+- 依赖 `mp-web-polyfill` 单包(当前以 `link:` 指向同级 `mp-web-polyfill`
   仓库,首次 npm 发布后切换为 registry 版本);
   本包只消费 `/fetch`、`/core`、`/text-encoding` 子路径,**不引入** `./url/idna`(tr46 ~213KB)
   与 `./streams/full`(web-streams ~62KB)两个按需重依赖 —— 中文域名等场景由 App 侧自行安装;
