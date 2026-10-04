@@ -15,6 +15,8 @@ concurrency:
 jobs:
   version-and-publish:
     runs-on: ubuntu-latest
+    env:
+      HAS_NPM_TOKEN: ${{ secrets.NPM_TOKEN != '' }} # secrets 不能用于 if,经 env 中转
     steps:
       - uses: actions/checkout@v4
         with:
@@ -43,7 +45,7 @@ jobs:
         run: pnpm build
 
       - name: Changesets(版本 PR / 发布)
-        if: ${{ secrets.NPM_TOKEN != '' }} # 未配置 npm 凭据前整段跳过,防止误发 link: 依赖的包
+        if: env.HAS_NPM_TOKEN == 'true' # 未配置 npm 凭据前整段跳过,防止误发 link: 依赖的包
         id: changesets
         uses: changesets/action@v1
         with:
