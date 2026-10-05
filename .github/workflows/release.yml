@@ -38,6 +38,9 @@ jobs:
           cache: pnpm
           registry-url: https://registry.npmjs.org/
 
+      - name: "安装并构建 mp-web-polyfill(其 exports 的 types 指向 dist,新 clone 无产物)"
+        run: pnpm --dir ../mp-web-polyfill install --frozen-lockfile && pnpm --dir ../mp-web-polyfill build
+
       - name: 安装依赖
         run: pnpm install --frozen-lockfile
 
@@ -47,7 +50,7 @@ jobs:
       - name: Changesets(版本 PR / 发布)
         if: env.HAS_NPM_TOKEN == 'true' # 未配置 npm 凭据前整段跳过,防止误发 link: 依赖的包
         id: changesets
-        uses: changesets/action@v1
+        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
         with:
           version: "pnpm changeset:version"
           publish: "pnpm changeset:publish"

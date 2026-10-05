@@ -5,6 +5,9 @@ on:
     branches: [main]
   pull_request:
 
+permissions:
+  contents: read # CI 只读仓库,构建产物上传走 ACTIONS_TOKEN
+
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -76,6 +79,9 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: pnpm
+
+      - name: "安装并构建 mp-web-polyfill(其 exports 的 types 指向 dist,新 clone 无产物)"
+        run: pnpm --dir ../mp-web-polyfill install --frozen-lockfile && pnpm --dir ../mp-web-polyfill build
 
       - name: 安装依赖
         run: pnpm install --frozen-lockfile
