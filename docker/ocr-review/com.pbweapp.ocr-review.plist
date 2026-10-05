@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  与 jgst docker/ocr-review/ 同一套模式:共享镜像 ocr-review:latest
+  (由 /Users/corn/Code/jgst/docker/ocr-review 构建,含 entrypoint.sh),
+  本仓库只放 launchd 配置。
+  部署: cp com.pbweapp.ocr-review.plist ~/Library/LaunchAgents/ && launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.pbweapp.ocr-review.plist
+  手动触发: launchctl kickstart gui/$(id -u)/com.pbweapp.ocr-review
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.pbweapp.ocr-review</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/docker</string>
+        <string>run</string>
+        <string>--rm</string>
+        <string>-e</string>
+        <string>GIT_REMOTE=https://github.com/CornWorld/pocketbase-weapp.git</string>
+        <string>-e</string>
+        <string>GIT_BRANCH=main</string>
+        <string>-e</string>
+        <string>BASELINE_FALLBACK=HEAD~10</string>
+        <string>-v</string>
+        <string>/Users/corn/Code/pocketbase-weapp:/workspace:rw</string>
+        <string>-v</string>
+        <string>/Users/corn/.opencodereview-jgst:/root/.opencodereview:rw</string>
+        <string>ocr-review:latest</string>
+    </array>
+
+    <!-- Every 6 hours -->
+    <key>StartInterval</key>
+    <integer>21600</integer>
+
+    <key>StandardOutPath</key>
+    <string>/Users/corn/Code/pocketbase-weapp/refs/ocr-review.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/corn/Code/pocketbase-weapp/refs/ocr-review.err</string>
+
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin</string>
+    </dict>
+</dict>
+</plist>

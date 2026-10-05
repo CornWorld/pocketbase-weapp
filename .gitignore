@@ -5,3 +5,6 @@ dist/
 coverage/
 .pb/
 probe-report.json
+
+# ocr-review 输出与会话状态
+refs/
