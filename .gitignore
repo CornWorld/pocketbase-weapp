@@ -7,4 +7,4 @@ coverage/
 probe-report.json
 
 # ocr-review 输出与会话状态
-refs/
+/refs/
